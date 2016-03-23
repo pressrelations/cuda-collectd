@@ -23,5 +23,10 @@ def read(data=None):
                 vl.dispatch(type='memory', type_instance='used',
                             values=[1e6 * float(gpu.find('fb_memory_usage/used').text.split()[0])])
 
-collectd.register_read(read)
+                vl.dispatch(type='power', type_instance='used',
+                            values=[float(gpu.find('power_readings/power_draw').text.split()[0])])
 
+                vl.dispatch(type='cpu', type_instance='used',
+                            values=[float(gpu.find('utilization/gpu_util').text.split()[0])])
+
+collectd.register_read(read)
